@@ -2,6 +2,7 @@
 ![Samir List Banner](https://raw.githubusercontent.com/abdallasamir04/Samir-List/main/Samir%20List/files/todobanner.png.png)
 
 # 📝 Samir List : Organize Your Life
+
 ![Version](https://img.shields.io/badge/version-1.0.0-yellow.svg?style=for-the-badge&logo=github&logoColor=white)
 ![Python](https://img.shields.io/badge/Language-Python-yellow.svg?style=for-the-badge&logo=python&logoColor=white)
 
@@ -95,11 +96,11 @@ The **Samir List** is a task management web application built with **Flask** and
 
 ![index](https://raw.githubusercontent.com/abdallasamir04/Samir-List/main/Samir%20List/files/afterlogin.png)
 
-### Dashboard (After Login)
+### Dashboard 
 ![Dashboard](https://raw.githubusercontent.com/abdallasamir04/Samir-List/main/Samir%20List/files/Dashboared.png)
 
 ### edit Page
-!edit](https://raw.githubusercontent.com/abdallasamir04/Samir-List/main/Samir%20List/files/edit.png)
+![edit](https://raw.githubusercontent.com/abdallasamir04/Samir-List/main/Samir%20List/files/edit.png)
 
 ---
 
