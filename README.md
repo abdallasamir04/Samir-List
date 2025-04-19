@@ -1,4 +1,4 @@
-![Samir List Banner](path_to_image_or_screenshot.png)
+![Samir List Banner](https://raw.githubusercontent.com/abdallasamir04/Samir-List/main/Samir%20List/files/todobanner.png.png)
 
 # 📝 Samir List: Organize Your Life
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?style=for-the-badge&logo=github&logoColor=white)
@@ -92,13 +92,13 @@ The **Samir List** is a task management web application built with **Flask** and
 
 ### index (After Login)
 
-![index](path_to_image_or_screenshot.png)
+![index](https://raw.githubusercontent.com/abdallasamir04/Samir-List/main/Samir%20List/files/afterlogin.png)
 
 ### Dashboard (After Login)
-![Dashboard](path_to_image_or_screenshot.png)
+![Dashboard](https://raw.githubusercontent.com/abdallasamir04/Samir-List/main/Samir%20List/files/Dashboared.png)
 
 ### edit Page
-![sdit](path_to_image_or_screenshot.png)
+!edit](https://raw.githubusercontent.com/abdallasamir04/Samir-List/main/Samir%20List/files/edit.png)
 
 ---
 
@@ -173,3 +173,5 @@ Let's connect! Feel free to reach out or follow me on these platforms:
 **Assiut National University**  
 **Software Design and Architecture Course - Third Level**
 **April 2025**
+
+
