@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Todo App{% endblock %}</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+  <script>
+    // Tailwind Config
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6366f1',
+            secondary: '#10b981',
+            danger: '#ef4444',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+    <nav class="navbar shadow-lg" role="navigation" aria-label="Main navigation">
+        <div class="container mx-auto py-4 px-6">
+            <div class="flex justify-between items-center">
+                <a href="{{ url_for('todo.index') }}" class="flex items-center gap-2 text-white text-2xl font-bold">
+                    <i class="fas fa-check-circle" aria-hidden="true"></i>
+                    <span>Samir List</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-6">
+                    {% if 'user_id' in session %}
+                        <a href="{{ url_for('todo.dashboard') }}" class="text-white hover:text-gray-200 transition-colors flex items-center gap-2">
+                            <i class="fas fa-columns" aria-hidden="true"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <div class="flex items-center gap-4">
+                            <a href="{{ url_for('auth.profile') }}" class="text-white hover:text-gray-200 transition-colors" aria-label="Profile">
+                                {% if current_user.profile_image %}
+                                    <img src="{{ current_user.profile_image }}" 
+                                         alt="Profile Photo" 
+                                         class="w-8 h-8 rounded-full object-cover border-2 border-white">
+                                {% else %}
+                                    <i class="fas fa-user" aria-hidden="true"></i>
+                                {% endif %}
+                            </a>
+                            <a href="{{ url_for('auth.logout') }}" class="text-white hover:text-gray-200 transition-colors flex items-center gap-2">
+                                <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    {% else %}
+                        <a href="{{ url_for('auth.login') }}" class="text-white hover:text-gray-200 transition-colors flex items-center gap-2">
+                            <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+                            <span>Login</span>
+                        </a>
+                        <a href="{{ url_for('auth.register') }}" class="text-white hover:text-gray-200 transition-colors flex items-center gap-2">
+                            <i class="fas fa-user-plus" aria-hidden="true"></i>
+                            <span>Register</span>
+                        </a>
+                    {% endif %}
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none" aria-label="Toggle navigation">
+                        <i class="fas fa-bars text-xl" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-2">
+                {% if 'user_id' in session %}
+                    <a href="{{ url_for('todo.dashboard') }}" class="block py-2 text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-columns mr-2" aria-hidden="true"></i> Dashboard
+                    </a>
+                    <a href="{{ url_for('auth.profile') }}" class="block py-2 text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-user mr-2" aria-hidden="true"></i> My Profile
+                    </a>
+                    <a href="{{ url_for('auth.logout') }}" class="block py-2 text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-sign-out-alt mr-2" aria-hidden="true"></i> Logout
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="block py-2 text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-sign-in-alt mr-2" aria-hidden="true"></i> Login
+                    </a>
+                    <a href="{{ url_for('auth.register') }}" class="block py-2 text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-user-plus mr-2" aria-hidden="true"></i> Register
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+  <div class="container mx-auto mt-6 px-4" role="alert" aria-live="polite">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="p-4 mb-4 text-sm rounded-lg 
+        {% if category == 'success' %} 
+          text-green-700 bg-green-100 
+        {% elif category == 'error' %} 
+          text-red-700 bg-red-100 
+        {% else %} 
+          text-blue-700 bg-blue-100 
+        {% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+ {% endwith %}
+ </div>
+
+  <main class="flex-grow container mx-auto p-6">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="bg-gray-800 text-white py-6 mt-12" role="contentinfo">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-check-circle" aria-hidden="true"></i>
+            <span class="font-bold">Samir List</span>
+          </div>
+          <p class="text-gray-400 text-sm mt-1">Organize your tasks efficiently</p>
+        </div>
+        <div class="flex space-x-4">
+          <a href="https://github.com/abdallasamir04" target="_blank" rel="noopener noreferrer" 
+             class="text-gray-400 hover:text-white transition-colors" aria-label="GitHub" title="Visit my GitHub">
+            <i class="fab fa-github text-xl" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span>
+          </a>
+          <a href="https://discord.com/users/dbx_707" target="_blank" rel="noopener noreferrer"
+             class="text-gray-400 hover:text-white transition-colors" aria-label="Discord" title="Contact me on Discord">
+            <i class="fab fa-discord text-xl" aria-hidden="true"></i>
+            <span class="sr-only">Discord</span>
+          </a>
+          <a href="https://www.linkedin.com/in/abdalla-mahmoud-9264242b6/" target="_blank" rel="noopener noreferrer"
+             class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn" title="Visit my LinkedIn">
+            <i class="fab fa-linkedin text-xl" aria-hidden="true"></i>
+            <span class="sr-only">LinkedIn</span>
+          </a>
+        </div>
+      </div>
+      <div class="mt-4 text-center md:text-left text-gray-400 text-sm">
+        &copy; {{ now.year }} Samir List. All rights reserved.
+      </div>
+    </div>
+</footer>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-button').addEventListener('click', function() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+    
+    // Auto-dismiss flash messages after 5 seconds
+    setTimeout(() => {
+      const flashMessages = document.querySelectorAll('.flash-message');
+      flashMessages.forEach(message => {
+        message.style.opacity = '0';
+        message.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => message.remove(), 500);
+      });
+    }, 5000);
+  </script>
+</body>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="fixed top-5 right-5 space-y-2 z-50">
+      {% for category, message in messages %}
+        <div class="flash-message bg-white shadow-lg rounded-md px-6 py-3 flex items-center gap-3 border-l-4
+            {% if category == 'success' %} border-green-500 text-green-700
+            {% elif category == 'danger' %} border-red-500 text-red-700
+            {% elif category == 'warning' %} border-yellow-400 text-yellow-700
+            {% elif category == 'info' %} border-blue-400 text-blue-700
+            {% else %} border-gray-300 text-gray-700
+            {% endif %}
+        ">
+          <i class="fas fa-info-circle"></i>
+          <span>{{ message }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+
+</html>

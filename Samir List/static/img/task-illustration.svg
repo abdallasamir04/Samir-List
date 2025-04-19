@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="400" viewBox="0 0 500 400">
+  <style>
+    .primary { fill: #6366f1; }
+    .secondary { fill: #10b981; }
+    .light-primary { fill: #c7d2fe; }
+    .light-secondary { fill: #d1fae5; }
+    .gray-light { fill: #f3f4f6; }
+    .gray-medium { fill: #d1d5db; }
+    .gray-dark { fill: #6b7280; }
+    .white { fill: #ffffff; }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .pulse {
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes check {
+      0% { stroke-dashoffset: 100; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .check {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: check 1.5s ease-in-out forwards;
+      animation-delay: 0.5s;
+    }
+  </style>
+  
+  <!-- Background elements -->
+  <circle cx="250" cy="200" r="150" class="light-primary" opacity="0.3" />
+  <circle cx="150" cy="100" r="20" class="light-secondary" opacity="0.5" class="float" />
+  <circle cx="350" cy="300" r="15" class="light-primary" opacity="0.5" class="float" />
+  
+  <!-- Main clipboard -->
+  <g class="pulse">
+    <rect x="150" y="100" width="200" height="250" rx="10" class="white" stroke="#d1d5db" stroke-width="2" />
+    <rect x="150" y="100" width="200" height="40" rx="10" class="primary" />
+    <rect x="170" y="120" width="100" height="10" rx="5" class="white" opacity="0.7" />
+  </g>
+  
+  <!-- Task items -->
+  <g transform="translate(170, 160)">
+    <rect width="160" height="30" rx="5" class="gray-light" />
+    <circle cx="15" cy="15" r="8" class="white" stroke="#d1d5db" stroke-width="2" />
+    <rect x="35" y="10" width="80" height="10" rx="2" class="gray-medium" />
+  </g>
+  
+  <g transform="translate(170, 200)">
+    <rect width="160" height="30" rx="5" class="gray-light" />
+    <circle cx="15" cy="15" r="8" class="white" stroke="#d1d5db" stroke-width="2" />
+    <rect x="35" y="10" width="100" height="10" rx="2" class="gray-medium" />
+  </g>
+  
+  <g transform="translate(170, 240)">
+    <rect width="160" height="30" rx="5" class="light-secondary" />
+    <circle cx="15" cy="15" r="8" class="secondary" />
+    <path d="M10,15 L15,20 L22,10" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check" />
+    <rect x="35" y="10" width="60" height="10" rx="2" class="gray-dark" />
+  </g>
+  
+  <g transform="translate(170, 280)">
+    <rect width="160" height="30" rx="5" class="gray-light" />
+    <circle cx="15" cy="15" r="8" class="white" stroke="#d1d5db" stroke-width="2" />
+    <rect x="35" y="10" width="90" height="10" rx="2" class="gray-medium" />
+  </g>
+  
+  <!-- Add button -->
+  <circle cx="330" cy="350" r="20" class="secondary" class="float" />
+  <path d="M330,340 L330,360 M320,350 L340,350" stroke="white" stroke-width="3" stroke-linecap="round" />
+</svg>

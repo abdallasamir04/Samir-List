@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% block title %}My Profile | TaskMaster{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden animate-fadeIn">
+    <div class="bg-primary p-6 text-white text-center">
+      <h2 class="text-2xl font-bold">My Profile</h2>
+      <p class="opacity-80">Manage your account settings</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 p-6">
+      <!-- Profile Picture Section -->
+      <div class="md:col-span-1 flex flex-col items-center">
+        <div class="relative mb-4">
+          <img src="{{ user.profile_image or url_for('static', filename='img/default-profile.png') }}" 
+               alt="Profile Picture" 
+               class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg">
+          <button onclick="document.getElementById('profile-picture-input').click()" 
+                  class="absolute bottom-0 right-0 bg-secondary text-white rounded-full p-2 shadow-md hover:bg-secondary-dark transition"
+                  aria-label="Change profile picture"
+                  title="Change profile picture">
+            <i class="fas fa-camera" aria-hidden="true"></i>
+            <span class="sr-only">Change profile picture</span>
+          </button>
+          <input type="file" id="profile-picture-input" name="profile_picture" accept="image/*" class="hidden" 
+                 onchange="previewProfilePicture(this)"
+                 aria-label="Profile picture upload">
+        </div>
+        <h3 class="text-xl font-semibold">{{ user.username }}</h3>
+        <p class="text-gray-500">{{ user.email }}</p>
+      </div>
+
+      <!-- Account Settings Section -->
+      <div class="md:col-span-2 space-y-6">
+        <!-- Update Profile Form -->
+        <form method="POST" action="{{ url_for('auth.update_profile') }}" class="space-y-4">
+          <input type="hidden" name="form_type" value="update_profile">
+          
+          <div>
+            <label for="username" class="block text-gray-700 font-medium mb-2">Username</label>
+            <input id="username" name="username" type="text" value="{{ user.username }}" 
+                   class="form-input w-full px-4 py-3 rounded-md focus:ring-primary" required
+                   aria-describedby="username-help">
+            <p id="username-help" class="text-sm text-gray-500 mt-1">This will be displayed to other users</p>
+          </div>
+
+          <div>
+            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+            <input id="email" name="email" type="email" value="{{ user.email }}" 
+                   class="form-input w-full px-4 py-3 rounded-md focus:ring-primary" required
+                   aria-describedby="email-help">
+            <p id="email-help" class="text-sm text-gray-500 mt-1">We'll never share your email</p>
+          </div>
+
+          <button type="submit" class="btn btn-primary text-white px-6 py-3 rounded-md hover:bg-primary-dark">
+            <i class="fas fa-save mr-2" aria-hidden="true"></i> Update Profile
+          </button>
+        </form>
+
+        <!-- Change Password Form -->
+        <form method="POST" action="{{ url_for('auth.change_password') }}" class="space-y-4 border-t pt-6">
+          <input type="hidden" name="form_type" value="change_password">
+          
+          <h3 class="text-xl font-semibold text-gray-800">Change Password</h3>
+          
+          <div>
+            <label for="current_password" class="block text-gray-700 font-medium mb-2">Current Password</label>
+            <div class="relative">
+              <input id="current_password" name="current_password" type="password" 
+                     class="form-input w-full px-4 py-3 rounded-md focus:ring-primary" required
+                     aria-describedby="current-password-help">
+              <button type="button" onclick="togglePassword('current_password', 'current-password-eye')" 
+                      class="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                      aria-label="Toggle password visibility"
+                      title="Toggle password visibility">
+                <i id="current-password-eye" class="fas fa-eye" aria-hidden="true"></i>
+                <span class="sr-only">Toggle password visibility</span>
+              </button>
+            </div>
+            <p id="current-password-help" class="text-sm text-gray-500 mt-1">Enter your current password</p>
+          </div>
+
+          <div>
+            <label for="new_password" class="block text-gray-700 font-medium mb-2">New Password</label>
+            <div class="relative">
+              <input id="new_password" name="new_password" type="password" 
+                     class="form-input w-full px-4 py-3 rounded-md focus:ring-primary" required
+                     aria-describedby="new-password-help">
+              <button type="button" onclick="togglePassword('new_password', 'new-password-eye')" 
+                      class="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                      aria-label="Toggle password visibility"
+                      title="Toggle password visibility">
+                <i id="new-password-eye" class="fas fa-eye" aria-hidden="true"></i>
+                <span class="sr-only">Toggle password visibility</span>
+              </button>
+            </div>
+            <p id="new-password-help" class="text-sm text-gray-500 mt-1">Minimum 8 characters</p>
+          </div>
+
+          <div>
+            <label for="confirm_password" class="block text-gray-700 font-medium mb-2">Confirm New Password</label>
+            <div class="relative">
+              <input id="confirm_password" name="confirm_password" type="password" 
+                     class="form-input w-full px-4 py-3 rounded-md focus:ring-primary" required
+                     aria-describedby="confirm-password-help">
+              <button type="button" onclick="togglePassword('confirm_password', 'confirm-password-eye')" 
+                      class="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                      aria-label="Toggle password visibility"
+                      title="Toggle password visibility">
+                <i id="confirm-password-eye" class="fas fa-eye" aria-hidden="true"></i>
+                <span class="sr-only">Toggle password visibility</span>
+              </button>
+            </div>
+            <p id="confirm-password-help" class="text-sm text-gray-500 mt-1">Re-enter your new password</p>
+          </div>
+
+          <button type="submit" class="btn btn-secondary text-white px-6 py-3 rounded-md hover:bg-secondary-dark">
+            <i class="fas fa-key mr-2" aria-hidden="true"></i> Change Password
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Toggle password visibility
+  function togglePassword(inputId, eyeIconId) {
+    const input = document.getElementById(inputId);
+    const eyeIcon = document.getElementById(eyeIconId);
+    
+    if (input.type === 'password') {
+      input.type = 'text';
+      eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+      eyeIcon.setAttribute('aria-label', 'Hide password');
+    } else {
+      input.type = 'password';
+      eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+      eyeIcon.setAttribute('aria-label', 'Show password');
+    }
+  }
+
+  // Preview profile picture before upload
+  function previewProfilePicture(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = input.closest('.relative').querySelector('img');
+        img.src = e.target.result;
+        
+        // Create a FormData object and send the image to the server
+        const formData = new FormData();
+        formData.append('profile_picture', input.files[0]);
+        
+        fetch("{{ url_for('auth.upload_profile_picture') }}", {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // Optional: Show success message
+            flashMessage('Profile picture updated successfully!', 'success');
+          } else {
+            flashMessage(data.message || 'Failed to update profile picture', 'error');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          flashMessage('An error occurred while uploading', 'error');
+        });
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  // Flash message function
+  function flashMessage(message, type) {
+    const flashDiv = document.createElement('div');
+    flashDiv.className = `flash-message fixed top-5 right-5 bg-white shadow-lg rounded-md px-6 py-3 flex items-center gap-3 border-l-4 z-50 ${
+      type === 'success' ? 'border-green-500 text-green-700' : 
+      type === 'error' ? 'border-red-500 text-red-700' : 
+      'border-blue-500 text-blue-700'
+    }`;
+    flashDiv.setAttribute('role', 'alert');
+    flashDiv.innerHTML = `
+      <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}" aria-hidden="true"></i>
+      <span>${message}</span>
+    `;
+    document.body.appendChild(flashDiv);
+    
+    setTimeout(() => {
+      flashDiv.style.opacity = '0';
+      flashDiv.style.transition = 'opacity 0.5s ease';
+      setTimeout(() => flashDiv.remove(), 500);
+    }, 3000);
+  }
+</script>
+{% endblock %}
