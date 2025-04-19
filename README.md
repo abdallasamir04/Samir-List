@@ -125,7 +125,7 @@ project_root/
   └── todo/                 # Todo-related files
       ├── routes.py         # Todo-specific routes for managing tasks
       └── models.py         # Todo-specific models (for tasks)
-
+```
 
 ---
 
