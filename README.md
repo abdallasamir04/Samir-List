@@ -1,6 +1,4 @@
-![Samir List Banner](https://raw.githubusercontent.com/abdallasamir04/Samir-List/main/Samir%20List/files/todobanner.png.png)
-
-# 📝 Samir List: Organize Your Life
+# 📝 Samir List : Organize Your Life
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?style=for-the-badge&logo=github&logoColor=white)
 ![Python](https://img.shields.io/badge/Language-Python-ff69b4.svg?style=for-the-badge&logo=python&logoColor=white)
 
@@ -8,6 +6,10 @@ The **Samir List** is a task management web application built with **Flask** and
 
 > 🧠 Developed by **Abdalla Samir** at **Assiut National University**, Faculty of Computers and Artificial Intelligence  
 > 📚 For the **Software Design and Architecture** course – 2nd Level
+
+---
+
+![Samir List Banner](https://raw.githubusercontent.com/abdallasamir04/Samir-List/main/Samir%20List/files/todobanner.png.png)
 
 ---
 
