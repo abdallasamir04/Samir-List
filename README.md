@@ -101,31 +101,31 @@ The **Samir List** is a task management web application built with **Flask** and
 ![sdit](path_to_image_or_screenshot.png)
 
 ---
-##File: tree-md
-## 📁 Project Structure
+
+# 📁 Project Directory Tree
+
+```bash
 project_root/
   ├── app.py                # Main entry point of the application
   ├── config.py             # Configuration settings (e.g., secret key, database URI)
   ├── models.py             # SQLAlchemy models for User and Todo
   ├── routes.py             # Routes for login, logout, task management
-  
-  templates/                # HTML templates for views
-    ├── base.html           # Base layout for the site
-    ├── index.html          # Homepage template
-    ├── login.html          # Login page template
-    ├── dashboard.html      # Dashboard for managing tasks
+  ├── templates/            # HTML templates for views
+  │   ├── base.html         # Base layout for the site
+  │   ├── index.html        # Homepage template
+  │   ├── login.html        # Login page template
+  │   └── dashboard.html    # Dashboard for managing tasks
+  ├── static/               # Static files (CSS, JS, images)
+  │   ├── css/              # Stylesheets
+  │   │   └── style.css     # Custom styles
+  │   ├── js/               # JavaScript files
+  │   │   └── your-script.js# Custom JavaScript logic
+  │   └── images/           # Images (e.g., logos, icons)
+  ├── migrations/           # Database migration files (auto-generated)
+  └── todo/                 # Todo-related files
+      ├── routes.py         # Todo-specific routes for managing tasks
+      └── models.py         # Todo-specific models (for tasks)
 
-  static/                   # Static files (CSS, JS, images)
-    ├── css/                # Stylesheets
-      └── style.css         # Custom styles
-    ├── js/                 # JavaScript files
-      └── your-script.js    # Custom JavaScript logic
-    └── images/             # Images (e.g., logos, icons)
-
-  migrations/               # Database migration files (auto-generated)
-  todo/                     # Todo-related files
-    ├── routes.py           # Todo-specific routes for managing tasks
-    └── models.py           # Todo-specific models (for tasks)
 
 ---
 
