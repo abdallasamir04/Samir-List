@@ -173,7 +173,6 @@ Let's connect! Feel free to reach out or follow me on these platforms:
 **Abdalla Mahmoud Samir**  
 **Faculty of Computers and Artificial Intelligence**  
 **Assiut National University**  
-**Software Design and Architecture Course - Third Level**
-**April 2025**
+**Software Design and Architecture Course - Third Level**  **April 2025**
 
 
