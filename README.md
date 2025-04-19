@@ -3,7 +3,7 @@
 
 # Samir List : Organize Your Life
 
-![Version](https://img.shields.io/badge/version-1.0.0-yellow.svg?style=for-the-badge&logo=github&logoColor=white)
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?style=for-the-badge&logo=github&logoColor=white)
 ![Python](https://img.shields.io/badge/Language-Python-yellow.svg?style=for-the-badge&logo=python&logoColor=white)
 
 The **Samir List** is a task management web application built with **Flask** and **SQLAlchemy** that allows users to efficiently organize, track, and complete their daily tasks. 
