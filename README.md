@@ -121,7 +121,7 @@ project_root/
   │   ├── css/              
   │   │   └── style.css     
   │   ├── js/               
-  │   │   └── script.js#
+  │   │   └── script.js
   │   └── images/           
   ├── migrations/           
   └── todo/                
